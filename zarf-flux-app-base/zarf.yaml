@@ -27,7 +27,7 @@ components:
             - name: CONTENTS
     description: "Deploy Flux wrapped Application"
     manifests:
-    - name: app
+    - name: app-manifests
       files:
       - manifests/secret.yaml
       - manifests/gitrepository.yaml
