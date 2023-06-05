@@ -4,7 +4,7 @@ metadata:
   name: gitlab
   description: "Gitlab Deployment"
   version: "0.0.1"
-  # architecture: amd64
+  architecture: amd64
 
 variables:
 - name: REPO

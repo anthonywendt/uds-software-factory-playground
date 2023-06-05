@@ -4,7 +4,7 @@ metadata:
   name: zarf-flux-app-base
   description: "flux-app-base"
   version: "0.0.1"
-  # architecture: amd64
+  architecture: amd64
 
 
 variables:

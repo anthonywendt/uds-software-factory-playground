@@ -4,7 +4,7 @@ metadata:
   name: software-factory
   description: "UDS Software Factory"
   version: "0.0.1"
-  # architecture: amd64
+  architecture: amd64
 
 components:
 - name: load-certs
