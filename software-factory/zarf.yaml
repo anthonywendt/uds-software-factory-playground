@@ -27,9 +27,9 @@ components:
   required: true
   import:
     name: values
-    url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-skeleton
+    url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64
 - name: import-gitlab
   required: true
   import:
     name: gitlab
-    url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-skeleton
+    url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64
