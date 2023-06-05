@@ -24,10 +24,12 @@ components:
   import:
     path: ../k3d
 - name: import-gitlab-values
+  required: true
   import:
     name: values
     url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-skeleton
 - name: import-gitlab
+  required: true
   import:
     name: gitlab
     url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-skeleton
