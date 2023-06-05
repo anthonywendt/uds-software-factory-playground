@@ -66,4 +66,4 @@ destroy-k3d-cluster:
 # You need to login to the registry before this will work
 # build/zarf tools registry login ghcr.io
 deploy-oci:
-	cd build && ./zarf package deploy --confirm oci://ghcr.io/anthonywendt/software-factory:$(SWF_VERSION)-amd4 --oci-concurrency=15
+	cd build && ./zarf package deploy --confirm oci://ghcr.io/anthonywendt/software-factory:$(SWF_VERSION)-amd64 --oci-concurrency=15
