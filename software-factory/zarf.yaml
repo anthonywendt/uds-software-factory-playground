@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: software-factory
+  description: "UDS Software Factory"
+  version: "0.0.1"
+  # architecture: amd64
+
+components:
+- name: import-gitlab
+  import:
+    name: gitlab
+    url: oci://ghcr.io/anthonywendt/gitlab:0.0.1-skeleton

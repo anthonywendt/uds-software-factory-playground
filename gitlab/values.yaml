@@ -1,0 +1,30 @@
+istio:
+  enabled: true
+
+global:
+  hosts:
+    domain: "###ZARF_VAR_DOMAIN###"
+  psql:
+    host: "###ZARF_VAR_GITLAB_DATABASE_HOST###"
+    port:  "###ZARF_VAR_GITLAB_DATABASE_PORT###"
+    username: "###ZARF_VAR_GITLAB_DATABASE_USERNAME###"
+    database: "###ZARF_VAR_GITLAB_DATABASE_PASSWORD###"
+    password:
+      secret: gitlab-database
+      key: PGPASSWORD
+
+domain: "###ZARF_VAR_DOMAIN###"
+
+monitoring:
+  enabled: true
+
+redis:
+  metrics:
+    serviceMonitor:
+      enabled: true
+      namespace: gitlab
+
+
+networkPolicies:
+  enabled: true
+  controlPlaneCidr: ###ZARF_VAR_CONTROL_PLANE_CIDR###
