@@ -12,3 +12,16 @@ package:
       public_key_file: bigbang.dev.key
       public_cert_file: bigbang.dev.cert
       host_path: "/var/lib/rancher/k3s/storage/*"
+
+      # These should need to be here
+      repo: "https://repo1.dso.mil/big-bang/product/packages/gitlab"
+      tag: "v6.11.3-bb.0"
+      name: gitlab
+      namespace: gitlab
+      values_file: values.yaml
+      path: chart
+      control_plane_cidr: "0.0.0.0/0"
+      gitlab_database_host: postgres
+      gitlab_database_port: "3306"
+      gitlab_database_username: admin
+      gitlab_database_password: postgres
