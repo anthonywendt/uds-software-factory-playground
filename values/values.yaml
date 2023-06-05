@@ -1,0 +1,11 @@
+domain: "###ZARF_VAR_DOMAIN###"
+
+networkPolicies:
+  enabled: true
+  controlPlaneCidr: "0.0.0.0/0"
+  nodeCidr: "0.0.0.0/0"
+  vpcCidr: "0.0.0.0/0"
+
+addons:
+  velero:
+    enabled: false

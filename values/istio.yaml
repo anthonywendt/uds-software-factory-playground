@@ -1,0 +1,51 @@
+istio:
+  enabled: true
+  ingressGateways:
+    passthrough-ingressgateway:
+      type: "LoadBalancer"
+    public-ingressgateway:
+      type: "LoadBalancer"
+  values:
+    istiod:
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "1Gi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+      hpaSpec:
+        maxReplicas: 1
+    values:
+      global:
+        proxy:
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"
+  gateways:
+    public:
+      ingressGateway: public-ingressgateway
+      hosts:
+        - "*.{{ .Values.domain }}"
+      tls:
+        key: "###ZARF_VAR_PUBLIC_KEY###"
+        cert: "###ZARF_VAR_PUBLIC_CERT###"
+    passthrough:
+      ingressGateway: passthrough-ingressgateway
+      hosts:
+        - "*.{{ .Values.domain }}"
+      tls:
+        mode: "PASSTHROUGH"
+istioOperator:
+  enabled: true
+  values:
+    operator:
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "256Mi"
+        requests:
+          cpu: "100m"
+          memory: "256Mi"

@@ -1,5 +1,5 @@
 package:
-  create:
+  create: 
     max_package_size: "1000000000"
     set:
       # renovate: datasource=gitlab-tags depName=big-bang/bigbang versioning=semver registryUrl=https://repo1.dso.mil
@@ -11,4 +11,3 @@ package:
       domain: bigbang.dev
       public_key_file: bigbang.dev.key
       public_cert_file: bigbang.dev.cert
-      host_path: "/var/lib/rancher/k3s/storage/*"

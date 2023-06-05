@@ -1,0 +1,6 @@
+loki:
+  strategy: "monolith"
+  values:
+    singleBinary:
+      persistence:
+          size: "###ZARF_VAR_LOKI_PVC_SIZE###"

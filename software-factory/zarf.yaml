@@ -7,6 +7,22 @@ metadata:
   # architecture: amd64
 
 components:
+- name: load-certs
+  required: true
+  import:
+    path: ../k3d
+- name: preflight
+  required: true
+  import:
+    path: ../k3d
+- name: download-flux
+  required: true
+  import:
+    path: ../k3d
+- name: bigbang
+  required: true
+  import:
+    path: ../k3d
 - name: import-gitlab
   import:
     name: gitlab
