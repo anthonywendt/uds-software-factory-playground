@@ -44,7 +44,7 @@ components:
     required: true
     description: "Deploy gitlab"
     import:
-      url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-amd64
+      url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-skeleton
       name: app
     images:
     - registry1.dso.mil/ironbank/bitnami/analytics/redis-exporter:v1.50.0
