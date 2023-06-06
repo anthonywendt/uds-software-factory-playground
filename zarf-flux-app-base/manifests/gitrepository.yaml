@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: "###ZARF_VAR_NAME###"
+  name: "###ZARF_CONST_NAME###"
   namespace: bigbang
 spec:
   ignore: |

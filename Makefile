@@ -51,7 +51,7 @@ build/zarf-init.sha256: | build ## Download the init package and create a small 
 	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
 init-k3d-cluster:
-	k3d cluster create mycluster --api-port 6443
+	k3d cluster create mycluster --api-port 6443 --no-lb --k3s-arg '--disable=servicelb'
 	k3d kubeconfig merge mycluster -o /home/ubuntu/cluster-kubeconfig.yaml
 	utils/metallb/install.sh
 	echo "Running default build"
