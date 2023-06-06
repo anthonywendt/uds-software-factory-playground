@@ -37,6 +37,6 @@ components:
       path: ../defense-unicorns-distro
     extensions:
       bigbang:
-        version: "###ZARF_PKG_VAR_BIGBANG_VERSION###"
+        version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
         valuesFiles:
         - values/local-dev.yaml

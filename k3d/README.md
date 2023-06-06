@@ -41,7 +41,7 @@ zarf package deploy --confirm zarf-package-big-bang-*.tar.zst
 
 # (Alternatively) Deploy from OCI
 # Login to the registry
-# Run the zarf package deploy command with the desired DUBBD OCI package reference 
+# Run the zarf package deploy command with the desired DUBBD OCI package reference
 zarf package deploy oci://ghcr.io/defenseunicorns/packages/big-bang-distro-k3d/big-bang-distro-k3d:0.0.1-amd64 --oci-concurrency=15
 ```
 
@@ -56,7 +56,7 @@ When running Big Bang locally, it is common to use local storage using hostpath 
       path: ../defense-unicorns-distro
     extensions:
       bigbang:
-        version: "###ZARF_PKG_VAR_BIGBANG_VERSION###"
+        version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
         valuesFiles:
         - values/local-dev.yaml
 ```

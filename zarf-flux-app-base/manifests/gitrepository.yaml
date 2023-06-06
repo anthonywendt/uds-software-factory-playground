@@ -1,7 +1,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: "###ZARF_TMPL_NAME###"
+  name: "###ZARF_VAR_NAME###"
   namespace: bigbang
 spec:
   ignore: |
@@ -10,6 +10,6 @@ spec:
     /**/*.txt
     /**/*.sh
   interval: 10m
-  url: "###ZARF_TMPL_REPO###"
+  url: "###ZARF_VAR_REPO###"
   ref:
-    tag: "###ZARF_TMPL_TAG###"
+    tag: "###ZARF_VAR_TAG###"
