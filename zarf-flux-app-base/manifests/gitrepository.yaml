@@ -10,6 +10,6 @@ spec:
     /**/*.txt
     /**/*.sh
   interval: 10m
-  url: "###ZARF_VAR_REPO###"
+  url: "###ZARF_CONST_REPO###"
   ref:
-    tag: "###ZARF_VAR_TAG###"
+    tag: "###ZARF_CONST_TAG###"
