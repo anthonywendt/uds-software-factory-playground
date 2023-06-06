@@ -64,13 +64,13 @@ destroy-k3d-cluster:
 	k3d cluster delete mycluster
 
 build/k3d-dubbd: | build
-	./build/zarf package create k3d --confirm --output-directory ../build
+	cd k3d && ../build/zarf package create . --confirm --output-directory ../build
 
 build/gitlab: | build
-	./build/zarf package create gitlab --confirm --output-directory ../build
+	cd gitlab && ../build/zarf package create . --confirm --output-directory ../build
 
 build/software-factory: | build
-	./build/zarf package create software-factory --confirm --output-directory ../build
+	cd software-factory && ../build/zarf package create . --confirm --output-directory ../build
 
 ########################################################################
 # Deploy Section
@@ -98,6 +98,9 @@ publish/zarf-flux-app-base:
 
 publish/gitlab:
 	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/k3d-dubbd:
+	./build/zarf package publish build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/software-factory:
 	./build/zarf package publish zarf-package-software-factory-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9

@@ -43,7 +43,7 @@ components:
     actions:
       onCreate:
         before:
-          - cmd: ./zarf package pull ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
+          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
       onDeploy:
         after:
           - cmd: ./zarf package deploy zarf-package-gitlab-amd64-0.0.1.tar.zst --confirm --no-progress=true
