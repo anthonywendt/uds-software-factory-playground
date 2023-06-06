@@ -7,24 +7,24 @@ metadata:
   architecture: amd64
 
 variables:
-  - name: REPO
-    default: "https://repo1.dso.mil/big-bang/product/packages/gitlab"
-    prompt: false
-  - name: TAG
-    default: "6.11.3-bb.0"
-    prompt: false
-  - name: NAME
-    default: gitlab
-    prompt: false
-  - name: NAMESPACE
-    default: gitlab
-    prompt: false
+  # - name: REPO
+  #   default: "https://repo1.dso.mil/big-bang/product/packages/gitlab"
+  #   prompt: false
+  # - name: TAG
+  #   default: "6.11.3-bb.0"
+  #   prompt: false
+  # - name: NAME
+  #   default: gitlab
+  #   prompt: false
+  # - name: NAMESPACE
+  #   default: gitlab
+  #   prompt: false
   - name: VALUES_FILE
     default: values.yaml
     prompt: false
-  - name: PATH
-    default: chart
-    prompt: false
+  # - name: PATH
+  #   default: chart
+  #   prompt: false
   - name: CONTROL_PLANE_CIDR
     default: "0.0.0.0/0"
     prompt: false

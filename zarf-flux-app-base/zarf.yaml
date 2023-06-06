@@ -15,6 +15,18 @@ variables:
     default: "false"
     description: "Toggles whether monitoring is enabled. Sent to each chart and matches the default .istio.enabled used in Big Bang"
 
+constants:
+  - name: REPO
+    value: "###ZARF_PKG_TMPL_REPO###"
+  - name: TAG
+    value: "###ZARF_PKG_TMPL_TAG###"
+  - name: NAME
+    value: "###ZARF_PKG_TMPL_NAME###"
+  - name: PATH
+    value: "###ZARF_PKG_TMPL_PATH###"
+  - name: NAMESPACE
+    value: "###ZARF_PKG_TMPL_NAMESPACE###"
+
 components:
   - name: app
     required: true
