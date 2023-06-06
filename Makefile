@@ -81,11 +81,11 @@ deploy/all: | deploy/init deploy/dubbd
 deploy/init:
 	./build/zarf init --confirm --components=git-server
 
-deploy/dubbd:
-	./build/zarf package deploy ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64
+deploy/k3d-dubbd:
+	./build/zarf package deploy oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --confirm
 
 deploy/software-factory:
-	./build/zarf package deploy build/zarf-package-software-factory-amd64-0.0.1.tar.zst --confirm
+	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.1-amd64 --confirm
 
 ########################################################################
 # Publish Section
