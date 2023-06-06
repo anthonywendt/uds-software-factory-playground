@@ -36,9 +36,7 @@ components:
   - name: values
     required: true
     files:
-      # - source: "###ZARF_PKG_TMPL_VALUES_FILE###"
-      #   target: values.yaml
-      - source: .
+      - source: values.yaml
         target: values.yaml
   - name: gitlab
     required: true

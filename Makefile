@@ -63,7 +63,41 @@ init-k3d-cluster:
 destroy-k3d-cluster:
 	k3d cluster delete mycluster
 
-# You need to login to the registry before this will work
-# build/zarf tools registry login ghcr.io
-deploy-oci:
-	cd build && ./zarf package deploy --confirm oci://ghcr.io/anthonywendt/software-factory:$(SWF_VERSION)-amd64 --oci-concurrency=15
+build/k3d-dubbd: | build
+	./build/zarf package create k3d --confirm --output-directory ../build
+
+build/gitlab: | build
+	./build/zarf package create gitlab --confirm --output-directory ../build
+
+build/software-factory: | build
+	./build/zarf package create software-factory --confirm --output-directory ../build
+
+########################################################################
+# Deploy Section
+########################################################################
+
+deploy/all: | deploy/init deploy/dubbd
+
+deploy/init:
+	./build/zarf init --confirm --components=git-server
+
+deploy/dubbd:
+	./build/zarf package deploy ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64
+
+deploy/software-factory:
+	./build/zarf package deploy build/zarf-package-software-factory-amd64-0.0.1.tar.zst --confirm
+
+########################################################################
+# Publish Section
+########################################################################
+
+publish/all: | publish/zarf-flux-app-base publish/gitlab
+
+publish/zarf-flux-app-base:
+	./build/zarf package publish zarf-flux-app-base oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/gitlab:
+	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/software-factory:
+	./build/zarf package publish zarf-package-software-factory-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
