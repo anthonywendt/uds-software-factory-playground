@@ -69,6 +69,9 @@ build/k3d-dubbd: | build
 build/gitlab: | build
 	cd gitlab && ../build/zarf package create . --confirm --output-directory ../build
 
+build/gitlab-runner: | build
+	cd gitlab-runner && ../build/zarf package create . --confirm --output-directory ../build
+
 build/software-factory: | build
 	cd software-factory && ../build/zarf package create . --confirm --output-directory ../build
 
@@ -76,7 +79,7 @@ build/software-factory: | build
 # Deploy Section
 ########################################################################
 
-deploy/all: | deploy/init deploy/dubbd
+deploy/all: | deploy/k3d-dubbd deploy/software-factory
 
 deploy/init:
 	./build/zarf init --confirm --components=git-server
@@ -91,7 +94,7 @@ deploy/software-factory:
 # Publish Section
 ########################################################################
 
-publish/all: | publish/zarf-flux-app-base publish/gitlab
+publish/all: | publish/zarf-flux-app-base publish/k3d-dubbd publish/gitlab publish/gitlab-runner publish/software-factory
 
 publish/zarf-flux-app-base:
 	./build/zarf package publish zarf-flux-app-base oci://ghcr.io/anthonywendt --oci-concurrency 9
@@ -99,8 +102,24 @@ publish/zarf-flux-app-base:
 publish/gitlab:
 	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
+publish/gitlab-runner:
+	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
 publish/k3d-dubbd:
 	./build/zarf package publish build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/software-factory:
 	./build/zarf package publish build/zarf-package-software-factory-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+######
+# Lazy
+######
+build-publish-deploy/all:
+	publish/zarf-flux-app-base
+	build/gitlab
+	publish/gitlab
+	build/gitlag-runner
+	publish/gitlab-runner
+	build/sofware-factory
+	publish/software-factory
+	deploy/all
