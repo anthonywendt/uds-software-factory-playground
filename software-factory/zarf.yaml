@@ -7,9 +7,23 @@ metadata:
   architecture: amd64
 
 components:
+  - name: workdir
+    required: true
+    actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p tmp
+      onDeploy:
+        before:
+          - cmd: mkdir -p tmp
+
   - name: k3d-dubbd
     required: true
     actions:
+      onCreate:
+        before:
+          - cmd: touch test1.txt
+            dir: tmp
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --confirm --no-progress=true --oci-concurrency=15
@@ -17,6 +31,10 @@ components:
   - name: gitlab
     required: true
     actions:
+      onCreate:
+        before:
+          - cmd: touch test2.txt
+            dir: tmp
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
@@ -25,6 +43,10 @@ components:
   - name: gitlab-runner
     required: true
     actions:
+      onCreate:
+        before:
+          - cmd: touch test3.txt
+            dir: tmp
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab-runner:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
