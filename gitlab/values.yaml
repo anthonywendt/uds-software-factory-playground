@@ -62,9 +62,8 @@ gitlab:
       bigbang.dev/istioVersion: 1.17.2
   gitlab-exporter:
     enabled: true
-    metrics:
-      annotations:
-        bigbang.dev/istioVersion: 1.17.2
+    annotations:
+      bigbang.dev/istioVersion: 1.17.2
     metrics:
       serviceMonitor:
         endpointConfig:

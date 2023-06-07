@@ -8,7 +8,7 @@ istio:
   injection: enabled
 
 networkPolicies:
-  enabled: true
+  enabled: false
   controlPlaneCidr: ###ZARF_VAR_CONTROL_PLANE_CIDR###
 
 # no longer necessary to directly pass through .Values.monitoring.enabled

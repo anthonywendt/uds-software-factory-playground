@@ -14,7 +14,7 @@ variables:
 - name: NAME
   default: gitlab-runner
 - name: NAMESPACE
-  default: gitlab
+  default: gitlab-runner
 - name: VALUES_FILE
   default: values.yaml
 - name: PATH
