@@ -105,4 +105,4 @@ publish/software-factory:
 ######
 # Lazy
 ######
-build-publish-deploy/all: | publish/zarf-flux-app-base build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/software-factory publish/software-factory deploy/all
+build-publish-deploy/all: | publish/zarf-flux-app-base build/k3d-dubbd publish/k3d-dubbd build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/software-factory publish/software-factory deploy/all
