@@ -70,7 +70,7 @@ build/software-factory: | build
 # Deploy Section
 ########################################################################
 
-deploy/all: | deploy/k3d-dubbd deploy/software-factory
+deploy/all: | deploy/software-factory
 
 deploy/init:
 	./build/zarf init --confirm --components=git-server
