@@ -33,3 +33,5 @@ components:
     - registry1.dso.mil/ironbank/gitlab/gitlab-runner/gitlab-runner:v15.10.0
     - registry1.dso.mil/ironbank/gitlab/gitlab-runner/gitlab-runner-helper:v15.10.0
     - registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.7
+    repos:
+    - "###ZARF_PKG_TMPL_REPO###"

@@ -75,3 +75,5 @@ components:
     - registry1.dso.mil/ironbank/opensource/postgres/postgresql12:12.15
     - registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.8
     - registry1.dso.mil/ironbank/gitlab/gitlab/gitlab-exporter:15.11.3
+    repos:
+    - "###ZARF_PKG_TMPL_REPO###"
