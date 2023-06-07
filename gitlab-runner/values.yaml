@@ -7,3 +7,6 @@ monitoring:
 networkPolicies:
   enabled: true
   controlPlaneCidr: ###ZARF_VAR_CONTROL_PLANE_CIDR###
+
+autoRegister:
+  enabled: true

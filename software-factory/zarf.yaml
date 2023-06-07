@@ -7,58 +7,83 @@ metadata:
   architecture: amd64
 
 components:
-  - name: workdir
-    required: true
-    actions:
-      onCreate:
-        before:
-          - cmd: mkdir -p tmp
-      onDeploy:
-        before:
-          - cmd: mkdir -p tmp
-  - name: zarf-config
-    required: true
-    files:
-      - source: zarf-config.yaml
-        target: tmp/zarf-config.yaml
   - name: k3d-dubbd
     required: true
-    files:
-      - source: ../build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
-        target: tmp/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
     actions:
-      onCreate:
-        before:
-          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
       onDeploy:
         after:
-          - cmd: ./zarf package deploy zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst --confirm --no-progress=true
+          - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --confirm --no-progress=true --oci-concurrency=15
+
+  - name: gitlab
+    required: true
+    actions:
+      onDeploy:
+        after:
+          - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
             dir: tmp
 
   - name: gitlab-runner
     required: true
-    files:
-      - source: ../build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
-        target: tmp/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
     actions:
-      onCreate:
-        before:
-          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/gitlab-runner:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
       onDeploy:
         after:
-          - cmd: ./zarf package deploy zarf-package-gitlab-runner-amd64-0.0.1.tar.zst --confirm --no-progress=true
+          - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab-runner:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
             dir: tmp
 
-  - name: gitlab
-    required: false
-    files:
-      - source: ../build/zarf-package-gitlab-amd64-0.0.1.tar.zst
-        target: tmp/zarf-package-gitlab-amd64-0.0.1.tar.zst
-    actions:
-      onCreate:
-        before:
-          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
-      onDeploy:
-        after:
-          - cmd: ./zarf package deploy zarf-package-gitlab-amd64-0.0.1.tar.zst --confirm --no-progress=true
-            dir: tmp
+  # - name: workdir
+  #   required: true
+  #   actions:
+  #     onCreate:
+  #       before:
+  #         - cmd: mkdir -p tmp
+  #     onDeploy:
+  #       before:
+  #         - cmd: mkdir -p tmp
+
+  # - name: zarf-config
+  #   required: true
+  #   files:
+  #     - source: zarf-config.yaml
+  #       target: tmp/zarf-config.yaml
+
+  # - name: k3d-dubbd
+  #   required: true
+  #   files:
+  #     - source: ../build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
+  #       target: tmp/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
+  #   actions:
+  #     onCreate:
+  #       before:
+  #         - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
+  #     onDeploy:
+  #       after:
+  #         - cmd: ./zarf package deploy zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst --confirm --no-progress=true
+  #           dir: tmp
+
+  # - name: gitlab
+  #   required: true
+  #   files:
+  #     - source: ../build/zarf-package-gitlab-amd64-0.0.1.tar.zst
+  #       target: tmp/zarf-package-gitlab-amd64-0.0.1.tar.zst
+  #   actions:
+  #     onCreate:
+  #       before:
+  #         - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
+  #     onDeploy:
+  #       after:
+  #         - cmd: ./zarf package deploy zarf-package-gitlab-amd64-0.0.1.tar.zst --confirm --no-progress=true
+  #           dir: tmp
+
+  # - name: gitlab-runner
+  #   required: true
+  #   files:
+  #     - source: ../build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
+  #       target: tmp/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
+  #   actions:
+  #     onCreate:
+  #       before:
+  #         - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/gitlab-runner:0.0.1-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
+  #     onDeploy:
+  #       after:
+  #         - cmd: ./zarf package deploy zarf-package-gitlab-runner-amd64-0.0.1.tar.zst --confirm --no-progress=true
+  #           dir: tmp
