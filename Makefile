@@ -22,15 +22,6 @@ help: ## Show a list of all targets
 clean: ## Clean up build files
 	@rm -rf ./build zarf-sbom
 
-mkdir:
-	@mkdir -p build
-
-.PHONY: build
-build: mkdir ## Build the Big Bang Zarf Package
-	@echo "Creating the deploy package"
-	@cd defense-unicorns-distro
-	@$(ZARF_BIN) package create --confirm
-
 default-build: ## All in one make target for the default di2me repo (only x86) - uses the current branch/tag of the repo
 	make build
 	make build/zarf
@@ -114,12 +105,4 @@ publish/software-factory:
 ######
 # Lazy
 ######
-build-publish-deploy/all:
-	publish/zarf-flux-app-base
-	build/gitlab
-	publish/gitlab
-	build/gitlag-runner
-	publish/gitlab-runner
-	build/sofware-factory
-	publish/software-factory
-	deploy/all
+build-publish-deploy/all: | publish/zarf-flux-app-base build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/sofware-factory publish/software-factory deploy/all
