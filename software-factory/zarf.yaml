@@ -10,7 +10,7 @@ components:
   - name: k3d-dubbd
     required: true
     files:
-      - source: zarf-config.yaml
+      - source: component-zarf-configs/k3d-dubbd/zarf-config.yaml
         target: k3d-dubbd/zarf-config.yaml
     actions:
       onCreate:
@@ -24,7 +24,7 @@ components:
   - name: gitlab
     required: true
     files:
-      - source: zarf-config.yaml
+      - source: component-zarf-configs/gitlab/zarf-config.yaml
         target: gitlab/zarf-config.yaml
     actions:
       onCreate:
@@ -38,7 +38,7 @@ components:
   - name: gitlab-runner
     required: true
     files:
-      - source: zarf-config.yaml
+      - source: component-zarf-configs/gitlab-runner/zarf-config.yaml
         target: gitlab-runner/zarf-config.yaml
     actions:
       onCreate:
