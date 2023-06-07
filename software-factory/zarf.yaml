@@ -26,16 +26,19 @@ components:
   - name: k3d-dubbd
     required: true
     files:
-      - source: tmp/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
-        target: tmp/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
+      - source: k3d-dubbd/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
+        target: k3d-dubbd/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
+      - source: component-zarf-configs/k3d-dubbd/zarf-config.yaml
+        target: k3d-dubbd/zarf-config.yaml
     actions:
       onCreate:
         before:
-          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory tmp --no-progress=true
+          - cmd: mkdir -p k3d-dubbd
+          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory k3d-dubbd --no-progress=true
       onDeploy:
         after:
           - cmd: ./zarf package deploy zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst --confirm --no-progress=true
-            dir: tmp
+            dir: k3d-dubbd
 
   - name: gitlab
     required: true
