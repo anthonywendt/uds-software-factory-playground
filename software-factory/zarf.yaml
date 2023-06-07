@@ -7,47 +7,47 @@ metadata:
   architecture: amd64
 
 components:
-  - name: workdir
-    required: true
-    actions:
-      onCreate:
-        before:
-          - cmd: mkdir -p tmp
-      onDeploy:
-        before:
-          - cmd: mkdir -p tmp
-
   - name: k3d-dubbd
     required: true
     files:
       - source: zarf-config.yaml
-        target: tmp/zarf-config.yaml
+        target: k3d-dubbd/zarf-config.yaml
     actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p k3d-dubbd
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --confirm --no-progress=true --oci-concurrency=15
+            dir: k3d-dubbd
 
   - name: gitlab
     required: true
     files:
       - source: zarf-config.yaml
-        target: tmp/zarf-config.yaml
+        target: gitlab/zarf-config.yaml
     actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p gitlab
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
-            dir: tmp
+            dir: gitlab
 
   - name: gitlab-runner
     required: true
     files:
       - source: zarf-config.yaml
-        target: tmp/zarf-config.yaml
+        target: gitlab-runner/zarf-config.yaml
     actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p gitlab-runner
       onDeploy:
         after:
           - cmd: ./zarf package deploy oci://ghcr.io/anthonywendt/gitlab-runner:0.0.1-amd64 --confirm --no-progress=true --oci-concurrency=15
-            dir: tmp
+            dir: gitlab-runner
 
   # - name: workdir
   #   required: true
