@@ -41,7 +41,7 @@ build/zarf-init.sha256: | build ## Download the init package and create a small 
 	echo "Creating shasum of the init package"
 	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
-init-k3d-cluster:
+create-and-init-k3d-cluster:
 	k3d cluster create mycluster --api-port 6443 --no-lb --k3s-arg '--disable=servicelb'
 	k3d kubeconfig merge mycluster -o /home/ubuntu/cluster-kubeconfig.yaml
 	utils/metallb/install.sh
@@ -55,7 +55,7 @@ destroy-k3d-cluster:
 	k3d cluster delete mycluster
 
 build/k3d-dubbd: | build
-	cd k3d && ../build/zarf package create . --confirm --output-directory ../build
+	cd dubbd-copy/k3d && ../build/zarf package create . --confirm --output-directory ../build
 
 build/gitlab: | build
 	cd gitlab && ../build/zarf package create . --confirm --output-directory ../build
