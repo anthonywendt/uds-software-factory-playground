@@ -2,12 +2,12 @@
 
 An experiment with UDS Software Factory concepts.
 
->>>**I'm breaking things. Don't trust this**
+>>>**Could be broken, could work perfectly fine. I break things, then fix them, then break them and fix them again**
 
 >**If you want read access to the packages used to deploy this example just let me know. They currently live in my personal github registry**
 
 ## This example contains
-- Copy of a k3d version of dubbd published for use in this example
+- Copy of a core dubbd, published as a *skeleton* package and used by a k3d config built and published for use in this example
 - zarf-flux-app-base package published as a *skeleton* for use in this example (imported by gitlab and gitlab-runner examples)
 - gitlab zarf package package published for use in this example
 - gitlab-runner zarf package published for use in this example
