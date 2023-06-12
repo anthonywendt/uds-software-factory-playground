@@ -1,0 +1,82 @@
+istio:
+  enabled: true
+  ingressGateways:
+    admin-ingressgateway:
+      type: "LoadBalancer"
+    public-ingressgateway: null
+    tenant-ingressgateway:
+      type: "LoadBalancer"
+  values:
+    gateways:
+      admin:
+        servers:
+          - hosts:
+              - "*.{{ .Values.domain }}"
+            port:
+              name: https
+              number: 8443
+              protocol: HTTPS
+            tls:
+              credentialName: "admin-cert"
+              mode: "SIMPLE"
+              minProtocolVersion: "TLSV1_3"
+      tenant:
+        servers:
+          - hosts:
+              - "*.{{ .Values.domain }}"
+            port:
+              name: https
+              number: 8443
+              protocol: HTTPS
+            tls:
+              credentialName: "tenant-cert"
+              mode: "SIMPLE"
+              minProtocolVersion: "TLSV1_3"
+    meshConfig:
+      meshMTLS:
+        minProtocolVersion: TLSV1_3
+    istiod:
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "1Gi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+      hpaSpec:
+        maxReplicas: 1
+    values:
+      global:
+        proxy:
+          resources:
+            requests:
+              memory: "1Gi"
+            limits:
+              memory: "1Gi"
+  gateways:
+    admin:
+      ingressGateway: admin-ingressgateway
+      hosts:
+        - "*.{{ .Values.domain }}"
+      tls:
+        key: "###ZARF_VAR_PUBLIC_KEY###"
+        cert: "###ZARF_VAR_PUBLIC_CERT###"
+    public: null
+    tenant:
+      ingressGateway: tenant-ingressgateway
+      hosts:
+        - "*.{{ .Values.domain }}"
+      tls:
+        key: "###ZARF_VAR_PUBLIC_KEY###"
+        cert: "###ZARF_VAR_PUBLIC_CERT###"
+istioOperator:
+  enabled: true
+  values:
+    operator:
+      resources:
+        limits:
+          cpu: "500m"
+          memory: "256Mi"
+        requests:
+          cpu: "100m"
+          memory: "256Mi"

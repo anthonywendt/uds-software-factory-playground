@@ -1,0 +1,9 @@
+neuvector:
+  enabled: true
+  ingress:
+    gateway: "admin"
+  values:
+    containerd:
+      enabled: true
+    monitor:
+      install: true

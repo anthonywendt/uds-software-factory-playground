@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: gitlab-runner
+  description: "Gitlab Runner Deployment"
+  version: "0.0.1"
+  architecture: amd64
+
+variables:
+- name: REPO
+  default: "https://repo1.dso.mil/big-bang/product/packages/gitlab-runner"
+- name: TAG
+  default: "0.51.0-bb.2"
+- name: NAME
+  default: gitlab-runner
+- name: NAMESPACE
+  default: gitlab-runner
+- name: VALUES_FILE
+  default: values.yaml
+- name: PATH
+  default: chart
+- name: CONTROL_PLANE_CIDR
+  default: "0.0.0.0/0"
+
+components:
+  - name: gitlab-runner
+    required: true
+    description: "Deploy Gitlab Runners"
+    import:
+      url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-skeleton
+      name: app
+    images:
+    - registry1.dso.mil/ironbank/gitlab/gitlab-runner/gitlab-runner:v15.10.0
+    - registry1.dso.mil/ironbank/gitlab/gitlab-runner/gitlab-runner-helper:v15.10.0
+    - registry1.dso.mil/ironbank/redhat/ubi/ubi8:8.7
+    repos:
+    - "###ZARF_PKG_TMPL_REPO###"

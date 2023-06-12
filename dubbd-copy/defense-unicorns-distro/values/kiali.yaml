@@ -1,0 +1,23 @@
+
+kiali:
+  enabled: true
+  ingress:
+    gateway: "admin"
+  values:
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "512Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    cr:
+      spec:
+        deployment:
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
