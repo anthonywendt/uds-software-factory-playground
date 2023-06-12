@@ -3,26 +3,26 @@ kind: ZarfPackageConfig
 metadata:
   name: software-factory
   description: "UDS Software Factory"
-  version: "0.0.1"
+  version: "0.0.2"
   architecture: amd64
 
 components:
-  - name: k3d-dubbd
+  - name: dubbd-k3d
     required: true
     files:
-      - source: k3d-dubbd/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
-        target: k3d-dubbd/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst
-      - source: component-zarf-configs/k3d-dubbd/zarf-config.yaml
-        target: k3d-dubbd/zarf-config.yaml
+      - source: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
+        target: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
+      - source: component-zarf-configs/dubbd-k3d/zarf-config.yaml
+        target: dubbd-k3d/zarf-config.yaml
     actions:
       onCreate:
         before:
-          - cmd: mkdir -p k3d-dubbd
-          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory k3d-dubbd --no-progress=true
+          - cmd: mkdir -p dubbd-k3d
+          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/dubbd-k3d:2.2.0-amd64 --oci-concurrency 9 --output-directory dubbd-k3d --no-progress=true
       onDeploy:
         after:
-          - cmd: ./zarf package deploy zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst --confirm --no-progress=true
-            dir: k3d-dubbd
+          - cmd: ./zarf package deploy zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst --confirm --no-progress=true
+            dir: dubbd-k3d
 
   - name: gitlab
     required: true

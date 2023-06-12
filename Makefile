@@ -78,8 +78,8 @@ deploy/all: | deploy/software-factory
 deploy/init:
 	./build/zarf init --confirm --components=git-server
 
-deploy/k3d-dubbd:
-	./build/zarf package deploy oci://ghcr.io/anthonywendt/big-bang-distro-k3d:2.2.0-amd64 --confirm
+deploy/dubbd-k3d:
+	./build/zarf package deploy oci://ghcr.io/anthonywendt/dubbd-k3d:2.2.0-amd64 --confirm
 
 deploy/software-factory:
 	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.1-amd64 --confirm
@@ -105,11 +105,11 @@ publish/dubbd-skeleton:
 publish/dubbd:
 	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
-publish/k3d-dubbd:
-	./build/zarf package publish build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+publish/dubbd-k3d:
+	./build/zarf package publish build/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/software-factory:
-	./build/zarf package publish build/zarf-package-software-factory-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-software-factory-amd64-0.0.2.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 ######
 # Lazy
