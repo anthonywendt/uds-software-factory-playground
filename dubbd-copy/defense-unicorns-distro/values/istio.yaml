@@ -1,11 +1,40 @@
 istio:
   enabled: true
   ingressGateways:
-    passthrough-ingressgateway:
+    admin-ingressgateway:
       type: "LoadBalancer"
-    public-ingressgateway:
+    public-ingressgateway: null
+    tenant-ingressgateway:
       type: "LoadBalancer"
   values:
+    gateways:
+      admin:
+        servers:
+          - hosts:
+              - "*.{{ .Values.domain }}"
+            port:
+              name: https
+              number: 8443
+              protocol: HTTPS
+            tls:
+              credentialName: "admin-cert"
+              mode: "SIMPLE"
+              minProtocolVersion: "TLSV1_3"
+      tenant:
+        servers:
+          - hosts:
+              - "*.{{ .Values.domain }}"
+            port:
+              name: https
+              number: 8443
+              protocol: HTTPS
+            tls:
+              credentialName: "tenant-cert"
+              mode: "SIMPLE"
+              minProtocolVersion: "TLSV1_3"
+    meshConfig:
+      meshMTLS:
+        minProtocolVersion: TLSV1_3
     istiod:
       resources:
         requests:
@@ -25,19 +54,21 @@ istio:
             limits:
               memory: "1Gi"
   gateways:
-    public:
-      ingressGateway: public-ingressgateway
+    admin:
+      ingressGateway: admin-ingressgateway
       hosts:
         - "*.{{ .Values.domain }}"
       tls:
         key: "###ZARF_VAR_PUBLIC_KEY###"
         cert: "###ZARF_VAR_PUBLIC_CERT###"
-    passthrough:
-      ingressGateway: passthrough-ingressgateway
+    public: null
+    tenant:
+      ingressGateway: tenant-ingressgateway
       hosts:
         - "*.{{ .Values.domain }}"
       tls:
-        mode: "PASSTHROUGH"
+        key: "###ZARF_VAR_PUBLIC_KEY###"
+        cert: "###ZARF_VAR_PUBLIC_CERT###"
 istioOperator:
   enabled: true
   values:

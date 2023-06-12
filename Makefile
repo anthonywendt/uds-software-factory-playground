@@ -55,10 +55,10 @@ destroy-k3d-cluster:
 	k3d cluster delete mycluster
 
 build/dubbd: | build
-	cd dubbd-copy/defense-unicorns-distro && ../build/zarf package create . --confirm --output-directory ../build
+	cd dubbd-copy/defense-unicorns-distro && ../../build/zarf package create . --confirm --output-directory ../../build
 
 build/k3d-dubbd: | build
-	cd dubbd-copy/k3d && ../build/zarf package create . --confirm --output-directory ../build
+	cd dubbd-copy/k3d && ../../build/zarf package create . --confirm --output-directory ../../build
 
 build/gitlab: | build
 	cd gitlab && ../build/zarf package create . --confirm --output-directory ../build
@@ -100,7 +100,7 @@ publish/gitlab-runner:
 	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/dubbd-skeleton:
-	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish dubbd-copy/defense-unicorns-distro oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/dubbd:
 	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
