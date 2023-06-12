@@ -1,6 +1,6 @@
 # The version of Zarf to use. To keep this repo as portable as possible the Zarf binary will be downloaded and added to
 # the build folder.
-ZARF_VERSION := v0.27.0
+ZARF_VERSION := v0.27.1
 
 SWF_VERSION := 0.0.1
 
@@ -54,6 +54,9 @@ create-and-init-k3d-cluster:
 destroy-k3d-cluster:
 	k3d cluster delete mycluster
 
+build/dubbd: | build
+	cd dubbd-copy/defense-unicorns-distro && ../build/zarf package create . --confirm --output-directory ../build
+
 build/k3d-dubbd: | build
 	cd dubbd-copy/k3d && ../build/zarf package create . --confirm --output-directory ../build
 
@@ -87,7 +90,7 @@ deploy/software-factory:
 
 publish/all: | publish/zarf-flux-app-base publish/k3d-dubbd publish/gitlab publish/gitlab-runner publish/software-factory
 
-publish/zarf-flux-app-base:
+publish/zarf-flux-app-base-skeleton:
 	./build/zarf package publish zarf-flux-app-base oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/gitlab:
@@ -95,6 +98,12 @@ publish/gitlab:
 
 publish/gitlab-runner:
 	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/dubbd-skeleton:
+	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/dubbd:
+	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/k3d-dubbd:
 	./build/zarf package publish build/zarf-package-big-bang-distro-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
@@ -105,4 +114,4 @@ publish/software-factory:
 ######
 # Lazy
 ######
-build-publish-deploy/all: | publish/zarf-flux-app-base build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/software-factory publish/software-factory deploy/all
+build-publish-deploy/all: | publish/zarf-flux-app-base-skeleton build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/software-factory publish/software-factory deploy/all

@@ -2,6 +2,8 @@
 
 An experiment with UDS Software Factory concepts.
 
+>>>**I'm breaking things. Don't trust this**
+
 >**If you want read access to the packages used to deploy this example just let me know. They currently live in my personal github registry**
 
 ## This example contains

@@ -1,6 +1,6 @@
 kind: ZarfPackageConfig
 metadata:
-  name: big-bang
+  name: dubbd
   description: "Defense Unicorns Big Bang Distro"
   version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
   url: https://p1.dso.mil/products/big-bang
@@ -175,12 +175,12 @@ components:
       bigbang:
         version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
         valuesFiles:
-        - ../values/values.yaml
-        - ../values/kyverno.yaml
-        - ../values/istio.yaml
-        - ../values/loki.yaml
-        - ../values/promtail.yaml
-        - ../values/kiali.yaml
-        - ../values/monitoring.yaml
-        - ../values/neuvector.yaml
-        - ../values/tempo.yaml
+        - values/values.yaml
+        - values/kyverno.yaml
+        - values/istio.yaml
+        - values/loki.yaml
+        - values/promtail.yaml
+        - values/kiali.yaml
+        - values/monitoring.yaml
+        - values/neuvector.yaml
+        - values/tempo.yaml
