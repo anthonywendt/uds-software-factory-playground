@@ -57,7 +57,7 @@ destroy-k3d-cluster:
 build/dubbd: | build
 	cd dubbd-copy/defense-unicorns-distro && ../../build/zarf package create . --confirm --output-directory ../../build
 
-build/k3d-dubbd: | build
+build/dubbd-k3d: | build
 	cd dubbd-copy/k3d && ../../build/zarf package create . --confirm --output-directory ../../build
 
 build/gitlab: | build
