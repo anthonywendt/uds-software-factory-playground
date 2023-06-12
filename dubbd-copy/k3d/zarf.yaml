@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
 kind: ZarfPackageConfig
 metadata:
-  name: big-bang-distro-k3d
+  name: dubbd-k3d
   description: "Defense Unicorns Big Bang Distro"
   version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
   url: https://p1.dso.mil/products/big-bang
@@ -22,19 +22,23 @@ components:
   - name: load-certs
     required: true
     import:
-      path: ../defense-unicorns-distro
+      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      name: load-certs
   - name: preflight
     required: true
     import:
-      path: ../defense-unicorns-distro
+      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      name: preflight
   - name: download-flux
     required: true
     import:
-      path: ../defense-unicorns-distro
+      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      name: download-flux
   - name: bigbang
     required: true
     import:
-      path: ../defense-unicorns-distro
+      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      name: bigbang
     extensions:
       bigbang:
         version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
