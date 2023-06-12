@@ -208,12 +208,12 @@ components:
       bigbang:
         version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###"
         valuesFiles:
-        - ../values/values.yaml
-        - ../values/kyverno.yaml
-        - ../values/istio.yaml
-        - ../values/loki.yaml
-        - ../values/promtail.yaml
-        - ../values/kiali.yaml
-        - ../values/monitoring.yaml
-        - ../values/neuvector.yaml
-        - ../values/tempo.yaml
+        - values/values.yaml
+        - values/kyverno.yaml
+        - values/istio.yaml
+        - values/loki.yaml
+        - values/promtail.yaml
+        - values/kiali.yaml
+        - values/monitoring.yaml
+        - values/neuvector.yaml
+        - values/tempo.yaml
