@@ -70,19 +70,3 @@ make deploy/software-factory
 
 ## More
 The Makefile has other build publish and deploy targets. But its all pointing to my personal registry.
-
-## Diagram
-
-```mermaid
-graph LR;
-  skel1[/zarf-flux-app-base-skeleton\]
-  skel2[/dubbd-skeleton\]
-
-  skel2 --> dubbd-k3d
-  skel1 --> gitlab
-  skel1 --> gitlab-runner
-
-  gitlab --> software-factory
-  gitlab-runner --> software-factory
-  dubbd-k3d --> software-factory
-```
