@@ -6,6 +6,22 @@ An experiment with UDS Software Factory concepts.
 
 >**If you want read access to the packages used to deploy this example just let me know. They currently live in my personal github registry**
 
+## Diagram
+
+```mermaid
+graph LR;
+  skel1[/zarf-flux-app-base-skeleton\]
+  skel2[/dubbd-skeleton\]
+
+  skel2 --> dubbd-k3d
+  skel1 --> gitlab
+  skel1 --> gitlab-runner
+
+  gitlab --> software-factory
+  gitlab-runner --> software-factory
+  dubbd-k3d --> software-factory
+```
+
 ## This example contains
 - Copy of a core dubbd, published as a *skeleton* package and used by a k3d config built and published for use in this example
 - zarf-flux-app-base package published as a *skeleton* for use in this example (imported by gitlab and gitlab-runner examples)
@@ -54,3 +70,19 @@ make deploy/software-factory
 
 ## More
 The Makefile has other build publish and deploy targets. But its all pointing to my personal registry.
+
+## Diagram
+
+```mermaid
+graph LR;
+  skel1[/zarf-flux-app-base-skeleton\]
+  skel2[/dubbd-skeleton\]
+
+  skel2 --> dubbd-k3d
+  skel1 --> gitlab
+  skel1 --> gitlab-runner
+
+  gitlab --> software-factory
+  gitlab-runner --> software-factory
+  dubbd-k3d --> software-factory
+```
