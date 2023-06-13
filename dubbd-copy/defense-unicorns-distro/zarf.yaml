@@ -3,7 +3,8 @@ metadata:
   name: dubbd
   description: "Defense Unicorns Big Bang Distro"
   # x-release-please-start-version
-  version: "0.2.2"
+  # version: "###ZARF_PKG_TMPL_BIGBANG_VERSION###" Why wont this work for publishing skeleton?
+  version: "2.2.0"
   # x-release-please-end
   url: https://p1.dso.mil/products/big-bang
   image: https://p1.dso.mil/Big_Bang_Color_Logo_White_text.b10a1bae.webp

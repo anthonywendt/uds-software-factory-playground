@@ -1,0 +1,9 @@
+package:
+  create:
+    max_package_size: "1000000000"
+    set:
+      repo: "https://repo1.dso.mil/big-bang/product/packages/sonarqube.git"
+      tag: "8.0.0-bb.1"
+      name: sonarqube
+      namespace: sonarqube
+      path: chart

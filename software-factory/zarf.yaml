@@ -57,3 +57,20 @@ components:
         after:
           - cmd: ./zarf package deploy zarf-package-gitlab-runner-amd64-0.0.1.tar.zst --confirm --no-progress=true
             dir: gitlab-runner
+
+  - name: sonarqube
+    required: true
+    files:
+      - source: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
+        target: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
+      - source: component-zarf-configs/sonarqube/zarf-config.yaml
+        target: sonarqube/zarf-config.yaml
+    actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p sonarqube
+          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/sonarqube:0.0.1-amd64 --oci-concurrency 9 --output-directory sonarqube --no-progress=true
+      onDeploy:
+        after:
+          - cmd: ./zarf package deploy zarf-package-sonarqube-amd64-0.0.1.tar.zst --confirm --no-progress=true
+            dir: sonarqube

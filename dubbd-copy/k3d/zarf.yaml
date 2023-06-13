@@ -22,22 +22,22 @@ components:
   - name: load-certs
     required: true
     import:
-      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      url: oci://ghcr.io/anthonywendt/dubbd:2.2.0-skeleton
       name: load-certs
   - name: preflight
     required: true
     import:
-      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      url: oci://ghcr.io/anthonywendt/dubbd:2.2.0-skeleton
       name: preflight
   - name: download-flux
     required: true
     import:
-      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      url: oci://ghcr.io/anthonywendt/dubbd:2.2.0-skeleton
       name: download-flux
   - name: bigbang
     required: true
     import:
-      url: oci://ghcr.io/anthonywendt/dubbd:0.2.2-skeleton
+      url: oci://ghcr.io/anthonywendt/dubbd:2.2.0-skeleton
       name: bigbang
     extensions:
       bigbang:

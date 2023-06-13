@@ -2,7 +2,7 @@
 # the build folder.
 ZARF_VERSION := v0.27.1
 
-SWF_VERSION := 0.0.1
+SWF_VERSION := 0.0.2
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
@@ -66,6 +66,9 @@ build/gitlab: | build
 build/gitlab-runner: | build
 	cd gitlab-runner && ../build/zarf package create . --confirm --output-directory ../build
 
+build/sonarqube: | build
+	cd sonarqube && ../build/zarf package create . --confirm --output-directory ../build
+
 build/software-factory: | build
 	cd software-factory && ../build/zarf package create . --confirm --output-directory ../build
 
@@ -82,7 +85,7 @@ deploy/dubbd-k3d:
 	./build/zarf package deploy oci://ghcr.io/anthonywendt/dubbd-k3d:2.2.0-amd64 --confirm
 
 deploy/software-factory:
-	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.1-amd64 --confirm
+	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.2-amd64 --confirm
 
 ########################################################################
 # Publish Section
@@ -95,6 +98,9 @@ publish/zarf-flux-app-base-skeleton:
 
 publish/gitlab:
 	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/sonarqube:
+	./build/zarf package publish build/zarf-package-sonarqube-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/gitlab-runner:
 	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
@@ -114,4 +120,4 @@ publish/software-factory:
 ######
 # Lazy
 ######
-build-publish-deploy/all: | publish/zarf-flux-app-base-skeleton build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/software-factory publish/software-factory deploy/all
+build-publish-deploy/all: | publish/zarf-flux-app-base-skeleton publish/dubbd-skeleton build/dubbd-k3d publish/dubbd-k3d build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/sonarqube publish/sonarqube build/software-factory publish/software-factory deploy/all
