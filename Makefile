@@ -85,7 +85,7 @@ deploy/dubbd-k3d:
 	./build/zarf package deploy oci://ghcr.io/anthonywendt/dubbd-k3d:2.2.0-amd64 --confirm
 
 deploy/software-factory:
-	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.1-amd64 --confirm
+	./build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.2-amd64 --confirm
 
 ########################################################################
 # Publish Section
