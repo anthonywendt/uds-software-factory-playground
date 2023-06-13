@@ -16,7 +16,9 @@ graph LR;
   skel2 --> dubbd-k3d
   skel1 --> gitlab
   skel1 --> gitlab-runner
+  skel1 --> sonarqube
 
+  sonarqube --> software-factory
   gitlab --> software-factory
   gitlab-runner --> software-factory
   dubbd-k3d --> software-factory
@@ -27,6 +29,7 @@ graph LR;
 - zarf-flux-app-base package published as a *skeleton* for use in this example (imported by gitlab and gitlab-runner examples)
 - gitlab zarf package package published for use in this example
 - gitlab-runner zarf package published for use in this example
+- sonarqube zarf package published for use in this example
 - software-factory zarf package that combines all this and is published for use in this example
 
 
@@ -64,7 +67,7 @@ make create-and-init-k3d-cluster
 ```
 - Deploy the software factory
 ```bash
-# This will deploy the "Software Factory" which contains gitlab, gitlab-runner running on top of DUBBD (Defense Unicorns Big Bang Distro)
+# This will deploy the "Software Factory" which contains gitlab, gitlab-runner and sonarqube running on top of DUBBD (Defense Unicorns Big Bang Distro)
 make deploy/software-factory
 ```
 
