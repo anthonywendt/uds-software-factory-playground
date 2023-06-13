@@ -38,9 +38,9 @@ components:
     files:
       - source: values.yaml
         target: values.yaml
-  - name: gitlab
+  - name: sonarqube
     required: true
-    description: "Deploy gitlab"
+    description: "Deploy sonarqube"
     import:
       url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-skeleton
       name: app
