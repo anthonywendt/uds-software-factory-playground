@@ -2,7 +2,7 @@
 # the build folder.
 ZARF_VERSION := v0.27.1
 
-SWF_VERSION := 0.0.1
+SWF_VERSION := 0.0.2
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
