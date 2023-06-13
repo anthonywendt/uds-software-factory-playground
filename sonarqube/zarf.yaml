@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: sonarqube
+  description: "Sonarqube Deployment"
+  version: "0.0.1"
+  architecture: amd64
+
+variables:
+  - name: REPO
+    default: "https://repo1.dso.mil/big-bang/product/packages/sonarqube.git"
+    prompt: false
+  - name: TAG
+    default: "8.0.0-bb.1"
+    prompt: false
+  - name: NAME
+    default: sonarqube
+    prompt: false
+  - name: NAMESPACE
+    default: sonarqube
+    prompt: false
+  - name: VALUES_FILE
+    default: values.yaml
+    prompt: false
+  - name: PATH
+    default: chart
+    prompt: false
+  - name: CONTROL_PLANE_CIDR
+    default: "0.0.0.0/0"
+    prompt: false
+  - name: DOMAIN
+    default: "bigbang.dev"
+    prompt: false
+
+components:
+  - name: values
+    required: true
+    files:
+      - source: values.yaml
+        target: values.yaml
+  - name: gitlab
+    required: true
+    description: "Deploy gitlab"
+    import:
+      url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-skeleton
+      name: app
+    images:
+    - "registry1.dso.mil/ironbank/big-bang/base:2.0.0"
+    - "registry1.dso.mil/ironbank/big-bang/sonarqube-9:9.9.0-community"
+    - "registry1.dso.mil/ironbank/opensource/postgres/postgresql12:12.14"
+    repos:
+    - "###ZARF_PKG_TMPL_REPO###"

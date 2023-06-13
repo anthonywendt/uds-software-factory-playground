@@ -66,6 +66,9 @@ build/gitlab: | build
 build/gitlab-runner: | build
 	cd gitlab-runner && ../build/zarf package create . --confirm --output-directory ../build
 
+build/sonarqube: | build
+	cd sonarqube && ../build/zarf package create . --confirm --output-directory ../build
+
 build/software-factory: | build
 	cd software-factory && ../build/zarf package create . --confirm --output-directory ../build
 
@@ -95,6 +98,9 @@ publish/zarf-flux-app-base-skeleton:
 
 publish/gitlab:
 	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+
+publish/sonarqube:
+	./build/zarf package publish build/zarf-package-sonarqube-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
 
 publish/gitlab-runner:
 	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
