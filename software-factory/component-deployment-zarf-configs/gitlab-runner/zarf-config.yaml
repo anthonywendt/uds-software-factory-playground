@@ -1,0 +1,4 @@
+package:
+  deploy:
+    set:
+      domain: ###ZARF_VAR_DOMAIN###

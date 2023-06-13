@@ -12,7 +12,7 @@ components:
     files:
       - source: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
         target: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
-      - source: component-zarf-configs/dubbd-k3d/zarf-config.yaml
+      - source: component-deployment-zarf-configs/dubbd-k3d/zarf-config.yaml
         target: dubbd-k3d/zarf-config.yaml
     actions:
       onCreate:
@@ -29,7 +29,7 @@ components:
     files:
       - source: gitlab/zarf-package-gitlab-amd64-0.0.1.tar.zst
         target: gitlab/zarf-package-gitlab-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/gitlab/zarf-config.yaml
+      - source: component-deployment-zarf-configs/gitlab/zarf-config.yaml
         target: gitlab/zarf-config.yaml
     actions:
       onCreate:
@@ -46,7 +46,7 @@ components:
     files:
       - source: gitlab-runner/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
         target: gitlab-runner/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/gitlab-runner/zarf-config.yaml
+      - source: component-deployment-zarf-configs/gitlab-runner/zarf-config.yaml
         target: gitlab-runner/zarf-config.yaml
     actions:
       onCreate:
@@ -63,7 +63,7 @@ components:
     files:
       - source: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
         target: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/sonarqube/zarf-config.yaml
+      - source: component-deployment-zarf-configs/sonarqube/zarf-config.yaml
         target: sonarqube/zarf-config.yaml
     actions:
       onCreate:
