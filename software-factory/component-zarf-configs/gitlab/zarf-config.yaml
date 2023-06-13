@@ -7,3 +7,6 @@ package:
       name: gitlab
       namespace: gitlab
       path: chart
+  deploy:
+    set:
+      domain: ###ZARF_VAR_DOMAIN###
