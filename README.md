@@ -22,6 +22,8 @@ graph LR;
   gitlab --> software-factory
   gitlab-runner --> software-factory
   dubbd-k3d --> software-factory
+
+  software-factory --> k3d-cluster[\k3d-cluster\]
 ```
 
 ## This example contains
