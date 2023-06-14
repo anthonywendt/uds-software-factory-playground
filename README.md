@@ -13,15 +13,15 @@ graph LR;
   skel1{{zarf-flux-app-base-skeleton}}
   skel2{{dubbd-skeleton}}
 
-  skel2 ==> dubbd-k3d
-  skel1 ==> gitlab
-  skel1 ==> gitlab-runner
-  skel1 ==> sonarqube
-  skel1 ==> nexus
+  skel2 --> dubbd-k3d
+  skel1 --> gitlab
+  skel1 --> gitlab-runner
+  skel1 --> sonarqube
+  skel1 --> nexus
 
-  sonarqube & gitlab & gitlab-runner & nexus & dubbd-k3d ==> software-factory
+  sonarqube & gitlab & gitlab-runner & nexus & dubbd-k3d --> software-factory
 
-  software-factory ==> k3d-cluster(((k3d-cluster)))
+  software-factory --> k3d-cluster(((k3d-cluster)))
 ```
 
 ## This example contains
