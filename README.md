@@ -21,7 +21,7 @@ graph LR;
 
   sonarqube & gitlab & gitlab-runner & nexus & dubbd-k3d ==> software-factory
 
-  software-factory --> k3d-cluster(((k3d-cluster)))
+  software-factory ==> k3d-cluster(((k3d-cluster)))
 ```
 
 ## This example contains
