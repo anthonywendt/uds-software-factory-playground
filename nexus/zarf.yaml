@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: nexus
+  description: "Nexus Deployment"
+  version: "0.0.1"
+  architecture: amd64
+
+variables:
+  - name: REPO
+    default: "https://repo1.dso.mil/big-bang/product/packages/nexus.git"
+    prompt: false
+  - name: TAG
+    default: "52.0.0-bb.0"
+    prompt: false
+  - name: NAME
+    default: nexus
+    prompt: false
+  - name: NAMESPACE
+    default: nexus
+    prompt: false
+  - name: VALUES_FILE
+    default: values.yaml
+    prompt: false
+  - name: PATH
+    default: chart
+    prompt: false
+  - name: CONTROL_PLANE_CIDR
+    default: "0.0.0.0/0"
+    prompt: false
+  - name: DOMAIN
+    default: "bigbang.dev"
+    prompt: false
+
+components:
+  - name: values
+    required: true
+    files:
+      - source: values.yaml
+        target: values.yaml
+  - name: nexus
+    required: true
+    description: "Deploy nexus"
+    import:
+      url: oci://ghcr.io/anthonywendt/zarf-flux-app-base:0.0.1-skeleton
+      name: app
+    images:
+    - "registry1.dso.mil/ironbank/redhat/ubi/ubi8-minimal:8.7"
+    - "registry1.dso.mil/ironbank/sonatype/nexus/nexus:3.52.0-01"
+    repos:
+    - "###ZARF_PKG_TMPL_REPO###"

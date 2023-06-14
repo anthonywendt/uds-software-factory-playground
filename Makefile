@@ -2,7 +2,9 @@
 # the build folder.
 ZARF_VERSION := v0.27.1
 
-SWF_VERSION := 0.0.2
+SWF_VERSION := 0.1.0
+
+OCI_REGISTRY := oci://ghcr.io/anthonywendt
 
 # Figure out which Zarf binary we should use based on the operating system we are on
 ZARF_BIN := zarf
@@ -42,7 +44,7 @@ build/zarf-init.sha256: | build ## Download the init package and create a small 
 	shasum -a 256 build/zarf-init-amd64-$(ZARF_VERSION).tar.zst | awk '{print $$1}' > build/zarf-init.sha256
 
 create-and-init-k3d-cluster:
-	k3d cluster create mycluster --api-port 6443 --no-lb --k3s-arg '--disable=servicelb'
+	k3d cluster create mycluster --api-port 6443 --no-lb --k3s-arg '--disable=servicelb' --k3s-arg '--disable=traefik@server:0' -v /etc/machine-id:/etc/machine-id@server:*
 	k3d kubeconfig merge mycluster -o /home/ubuntu/cluster-kubeconfig.yaml
 	utils/metallb/install.sh
 	echo "Running default build"
@@ -69,6 +71,9 @@ build/gitlab-runner: | build
 build/sonarqube: | build
 	cd sonarqube && ../build/zarf package create . --confirm --output-directory ../build
 
+build/nexus: | build
+	cd nexus && ../build/zarf package create . --confirm --output-directory ../build
+
 build/software-factory: | build
 	cd software-factory && ../build/zarf package create . --confirm --output-directory ../build
 
@@ -82,10 +87,10 @@ deploy/init:
 	./build/zarf init --confirm --components=git-server
 
 deploy/dubbd-k3d:
-	./build/zarf package deploy oci://ghcr.io/anthonywendt/dubbd-k3d:2.2.0-amd64 --confirm
+	./build/zarf package deploy $(OCI_REGISTRY)/dubbd-k3d:2.2.0-amd64 --confirm
 
 deploy/software-factory:
-	cd software-factory && ../build/zarf package deploy oci://ghcr.io/anthonywendt/software-factory:0.0.2-amd64 --confirm
+	cd software-factory && ../build/zarf package deploy $(OCI_REGISTRY)/software-factory:$(SWF_VERSION)-amd64 --confirm
 
 ########################################################################
 # Publish Section
@@ -94,30 +99,33 @@ deploy/software-factory:
 publish/all: | publish/zarf-flux-app-base publish/k3d-dubbd publish/gitlab publish/gitlab-runner publish/software-factory
 
 publish/zarf-flux-app-base-skeleton:
-	./build/zarf package publish zarf-flux-app-base oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish zarf-flux-app-base $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/gitlab:
-	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-gitlab-amd64-0.0.1.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/sonarqube:
-	./build/zarf package publish build/zarf-package-sonarqube-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-sonarqube-amd64-0.0.1.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
+
+publish/nexus:
+	./build/zarf package publish build/zarf-package-nexus-amd64-0.0.1.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/gitlab-runner:
-	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/dubbd-skeleton:
-	./build/zarf package publish dubbd-copy/defense-unicorns-distro oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish dubbd-copy/defense-unicorns-distro $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/dubbd:
-	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-dubbd-amd64-2.2.0.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/dubbd-k3d:
-	./build/zarf package publish build/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 publish/software-factory:
-	./build/zarf package publish build/zarf-package-software-factory-amd64-0.0.2.tar.zst oci://ghcr.io/anthonywendt --oci-concurrency 9
+	./build/zarf package publish build/zarf-package-software-factory-amd64-$(SWF_VERSION).tar.zst $(OCI_REGISTRY) --oci-concurrency 9
 
 ######
 # Lazy
 ######
-build-publish-deploy/all: | publish/zarf-flux-app-base-skeleton publish/dubbd-skeleton build/dubbd-k3d publish/dubbd-k3d build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/sonarqube publish/sonarqube build/software-factory publish/software-factory deploy/all
+build-publish-deploy/all: | publish/zarf-flux-app-base-skeleton publish/dubbd-skeleton build/dubbd-k3d publish/dubbd-k3d build/gitlab publish/gitlab build/gitlab-runner publish/gitlab-runner build/sonarqube publish/sonarqube build/nexus publish/nexus build/software-factory publish/software-factory deploy/all
