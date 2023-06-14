@@ -10,28 +10,27 @@ An experiment with UDS Software Factory concepts.
 
 ```mermaid
 graph LR;
-  skel1[/zarf-flux-app-base-skeleton\]
-  skel2[/dubbd-skeleton\]
+  skel1{{zarf-flux-app-base-skeleton}}
+  skel2{{dubbd-skeleton}}
 
-  skel2 --> dubbd-k3d
-  skel1 --> gitlab
-  skel1 --> gitlab-runner
-  skel1 --> sonarqube
+  skel2 ==> dubbd-k3d
+  skel1 ==> gitlab
+  skel1 ==> gitlab-runner
+  skel1 ==> sonarqube
+  skel1 ==> nexus
 
-  sonarqube --> software-factory
-  gitlab --> software-factory
-  gitlab-runner --> software-factory
-  dubbd-k3d --> software-factory
+  sonarqube & gitlab & gitlab-runner & nexus & dubbd-k3d ==> software-factory
 
-  software-factory --> k3d-cluster[\k3d-cluster\]
+  software-factory ==> k3d-cluster(((k3d-cluster)))
 ```
 
 ## This example contains
 - Copy of a core dubbd, published as a *skeleton* package and used by a k3d config built and published for use in this example
-- zarf-flux-app-base package published as a *skeleton* for use in this example (imported by gitlab and gitlab-runner examples)
+- zarf-flux-app-base package published as a *skeleton* for use in this example (imported by gitlab, gitlab-runner, sonareqube and nexus)
 - gitlab zarf package package published for use in this example
 - gitlab-runner zarf package published for use in this example
 - sonarqube zarf package published for use in this example
+- nexus zarf package published for use in this example
 - software-factory zarf package that combines all this and is published for use in this example
 
 

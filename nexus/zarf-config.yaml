@@ -1,0 +1,9 @@
+package:
+  create:
+    max_package_size: "1000000000"
+    set:
+      repo: "https://repo1.dso.mil/big-bang/product/packages/nexus.git"
+      tag: "52.0.0-bb.0"
+      name: nexus
+      namespace: nexus
+      path: chart

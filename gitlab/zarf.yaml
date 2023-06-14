@@ -29,7 +29,7 @@ variables:
     default: "0.0.0.0/0"
     prompt: false
   - name: DOMAIN
-    default: "bigbang.dev"
+    default: "bogus.bigbang.dev"
     prompt: false
   - name: GITLAB_DATABASE_HOST
     default: postgres

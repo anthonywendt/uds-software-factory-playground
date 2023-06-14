@@ -1,0 +1,42 @@
+
+domain: ###ZARF_VAR_DOMAIN###
+hostname: nexus
+istio:
+  enabled: true
+  injection: enabled
+  nexus:
+    gateways:
+    - istio-system/public
+
+openshift: false
+
+image:
+  pullPolicy: IfNotPresent
+
+job_image:
+  pullPolicy: IfNotPresent
+
+monitoring:
+  enabled: true
+  serviceMonitor:
+    createMetricsUser: true
+    scheme: https
+    tlsConfig:
+      caFile: /etc/prom-certs/root-cert.pem
+      certFile: /etc/prom-certs/cert-chain.pem
+      keyFile: /etc/prom-certs/key.pem
+      insecureSkipVerify: true  # Prometheus does not support Istio security naming, thus skip verifying target
+
+networkPolicies:
+  enabled: true
+  ingressLabels:
+    app: null
+    istio: null
+
+nexus:
+  imagePullSecrets:
+    - name: private-registry
+  podAnnotations:
+    bigbang.dev/istioVersion: 1.17.2
+
+license_key: ""

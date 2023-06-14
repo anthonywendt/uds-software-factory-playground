@@ -1,0 +1,40 @@
+# hostname is deprecated and replaced with domain. But if hostname exists then use it.
+domain: ###ZARF_VAR_DOMAIN###
+
+# Define variables to help with conditionals later
+
+OpenShift:
+  enabled: false
+
+istio:
+  enabled: true
+  sonarqube:
+    gateways:
+    - istio-system/public
+  injection: enabled
+
+monitoring:
+  enabled: true
+
+networkPolicies:
+  enabled: true
+  ingressLabels:
+    app: null
+    istio: null
+
+image:
+  pullPolicy: IfNotPresent
+  pullSecret: private-registry
+annotations:
+  bigbang.dev/istioVersion: 1.17.2
+postgresql:
+  master:
+    podAnnotations:
+      bigbang.dev/istioVersion: 1.17.2
+  slave:
+    podAnnotations:
+      bigbang.dev/istioVersion: 1.17.2
+  # Use internal database, defaults are fine
+  enabled: true
+  service:
+    port: 5432

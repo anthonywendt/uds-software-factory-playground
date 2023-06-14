@@ -3,7 +3,7 @@ kind: ZarfPackageConfig
 metadata:
   name: software-factory
   description: "UDS Software Factory"
-  version: "0.0.2"
+  version: "0.1.0"
   architecture: amd64
 
 components:
@@ -12,7 +12,7 @@ components:
     files:
       - source: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
         target: dubbd-k3d/zarf-package-dubbd-k3d-amd64-2.2.0.tar.zst
-      - source: component-zarf-configs/dubbd-k3d/zarf-config.yaml
+      - source: component-deployment-zarf-configs/dubbd-k3d/zarf-config.yaml
         target: dubbd-k3d/zarf-config.yaml
     actions:
       onCreate:
@@ -29,7 +29,7 @@ components:
     files:
       - source: gitlab/zarf-package-gitlab-amd64-0.0.1.tar.zst
         target: gitlab/zarf-package-gitlab-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/gitlab/zarf-config.yaml
+      - source: component-deployment-zarf-configs/gitlab/zarf-config.yaml
         target: gitlab/zarf-config.yaml
     actions:
       onCreate:
@@ -46,7 +46,7 @@ components:
     files:
       - source: gitlab-runner/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
         target: gitlab-runner/zarf-package-gitlab-runner-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/gitlab-runner/zarf-config.yaml
+      - source: component-deployment-zarf-configs/gitlab-runner/zarf-config.yaml
         target: gitlab-runner/zarf-config.yaml
     actions:
       onCreate:
@@ -63,7 +63,7 @@ components:
     files:
       - source: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
         target: sonarqube/zarf-package-sonarqube-amd64-0.0.1.tar.zst
-      - source: component-zarf-configs/sonarqube/zarf-config.yaml
+      - source: component-deployment-zarf-configs/sonarqube/zarf-config.yaml
         target: sonarqube/zarf-config.yaml
     actions:
       onCreate:
@@ -74,3 +74,20 @@ components:
         after:
           - cmd: ./zarf package deploy zarf-package-sonarqube-amd64-0.0.1.tar.zst --confirm --no-progress=true
             dir: sonarqube
+
+  - name: nexus
+    required: true
+    files:
+      - source: nexus/zarf-package-nexus-amd64-0.0.1.tar.zst
+        target: nexus/zarf-package-nexus-amd64-0.0.1.tar.zst
+      - source: component-deployment-zarf-configs/nexus/zarf-config.yaml
+        target: nexus/zarf-config.yaml
+    actions:
+      onCreate:
+        before:
+          - cmd: mkdir -p nexus
+          - cmd: ./zarf package pull oci://ghcr.io/anthonywendt/nexus:0.0.1-amd64 --oci-concurrency 9 --output-directory nexus --no-progress=true
+      onDeploy:
+        after:
+          - cmd: ./zarf package deploy zarf-package-nexus-amd64-0.0.1.tar.zst --confirm --no-progress=true
+            dir: nexus
