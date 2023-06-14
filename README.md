@@ -9,7 +9,7 @@ An experiment with UDS Software Factory concepts.
 ## Diagram
 
 ```mermaid
-graph LR;
+graph TD;
   skel1{{zarf-flux-app-base-skeleton}}
   skel2{{dubbd-skeleton}}
 
